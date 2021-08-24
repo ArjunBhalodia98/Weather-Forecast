@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Col} from 'react-bootstrap';
-import CloudIcon from '@material-ui/icons/Cloud';
 
 export default function WeatherCard(props) {
 
@@ -14,7 +13,9 @@ export default function WeatherCard(props) {
                     <Card.Text className="d-flex align-items-center flex-column">
                         <div style={{fontWeight: 'bold'}}>{props.text}</div>
                         <div style={{fontStyle: 'italic', fontSize: '0.9rem'}}>{props.Date}</div>
-                        <div> <CloudIcon style={{fontSize: '4rem'}}/></div>
+                        <div> 
+                            <img src={props.Symbol}/>
+                        </div>
                         <div className="d-flex" style={{fontSize: '2rem'}}>
                             <div>{props.Temperature}</div>
                             <div>ºF</div>
