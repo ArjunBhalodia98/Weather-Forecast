@@ -13,10 +13,10 @@ export default function WeatherCard(props) {
                     </Card.Title>
                     <Card.Text className="d-flex align-items-center flex-column">
                         <div style={{fontWeight: 'bold'}}>{props.text}</div>
-                        <div style={{fontStyle: 'italic'}}>{props.Date}</div>
+                        <div style={{fontStyle: 'italic', fontSize: '0.9rem'}}>{props.Date}</div>
                         <div> <CloudIcon style={{fontSize: '4rem'}}/></div>
                         <div className="d-flex" style={{fontSize: '2rem'}}>
-                            <div>32</div>
+                            <div>{props.Temperature}</div>
                             <div>ºF</div>
                         </div>
                         <div>{props.WeatherCondition}</div>

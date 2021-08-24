@@ -6,25 +6,24 @@ import SearchBar from 'material-ui-search-bar';
 export default function Home() {
 
   const [place, setPlace] = useState('')
+  const [cards, setCards] = useState([])
 
-  var weatherCards = []
 
   function fetchApi(name){
-    fetch("http://api.openweathermap.org/data/2.5/forecast?cnt=5&units=imperial&q=" + name + "&APPID=")
+    setCards([])
+    fetch("http://api.openweathermap.org/data/2.5/forecast?cnt=30&units=imperial&q=" + name + "&APPID=6c6633bc4f98cbc689f2808a390a9fe1")
     .then(res => res.json())
     .then((result) => {
-        console.log(result)
-        const weatherData = {
-          Day: String,
-          Date: String,
-          Symbol: String,
-          Temperature: String,
-          Condition: String
+        for(var i = 0; i < 30; i++){
+          var date = new Date(result['list'][i]['dt'] * 1000)
+          setCards(prevItems => [...prevItems, {
+            Day: String = new Intl.DateTimeFormat('en-US', { weekday: 'long'}).format(date),
+            Date: String = new Intl.DateTimeFormat('en-US', { month: 'long'}).format(date) + " " + date.getDate() + ", " + date.toLocaleString('en-US', { hour: 'numeric', hour12: true }),
+            Symbol: String,
+            Temperature: result["list"][i]["main"]["temp"],
+            Condition: result["list"][i]["weather"][0]["main"]
+          }])
         }
-        weatherData.Day = "Arjun"
-        weatherCards.push(weatherData)
-        weatherCards.push(weatherData1)
-        console.log(weatherCards)
     })
   }
 
@@ -40,12 +39,12 @@ export default function Home() {
       className="mb-3 mt-3"
       />
       <Container>
-        <Row xs={1} md={4} lg={5}>
-          <WeatherCard text="Friday" Date="March 1st" WeatherCondition="Sunny"/>
-          <WeatherCard text="Saturday" Date="March 2st" WeatherCondition="Sunny"/>
-          <WeatherCard text="Sunday" Date="March 3rd" WeatherCondition="Sunny"/>
-          <WeatherCard text="Monday" Date="March 4th" WeatherCondition="Sunny"/>
-          <WeatherCard text="Tuesday" Date="March 5th" WeatherCondition="Sunny"/>
+        <Row xs={2} md={4} lg={5}>
+          {
+            cards.map((card) => {
+              return <WeatherCard text={card.Day} Date={card.Date} WeatherCondition={card.Condition} Temperature={card.Temperature}/>
+            })
+          }
         </Row>
       </Container>
     </div>
