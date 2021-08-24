@@ -10,7 +10,7 @@ export default function Home() {
   var weatherCards = []
 
   function fetchApi(name){
-    fetch("http://api.openweathermap.org/data/2.5/forecast?cnt=5&units=imperial&q=" + name + "&APPID=6c6633bc4f98cbc689f2808a390a9fe1")
+    fetch("http://api.openweathermap.org/data/2.5/forecast?cnt=5&units=imperial&q=" + name + "&APPID=")
     .then(res => res.json())
     .then((result) => {
         console.log(result)
@@ -22,14 +22,6 @@ export default function Home() {
           Condition: String
         }
         weatherData.Day = "Arjun"
-        const weatherData1 = {
-          Day: String,
-          Date: String,
-          Symbol: String,
-          Temperature: String,
-          Condition: String
-        }
-        weatherData1.Day = "Arjun1"
         weatherCards.push(weatherData)
         weatherCards.push(weatherData1)
         console.log(weatherCards)
