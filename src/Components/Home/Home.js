@@ -11,7 +11,7 @@ export default function Home() {
 
   function fetchApi(name){
     setCards([])
-    fetch("http://api.openweathermap.org/data/2.5/forecast?cnt=30&units=imperial&q=" + name + "&APPID=6c6633bc4f98cbc689f2808a390a9fe1")
+    fetch("https://api.openweathermap.org/data/2.5/forecast?cnt=30&units=imperial&q=" + name + "&APPID=6c6633bc4f98cbc689f2808a390a9fe1")
     .then(res => res.json())
     .then((result) => {
         for(var i = 0; i < 30; i++){
