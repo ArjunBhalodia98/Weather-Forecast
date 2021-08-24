@@ -17,9 +17,9 @@ export default function Home() {
         for(var i = 0; i < 30; i++){
           var date = new Date(result['list'][i]['dt'] * 1000)
           setCards(prevItems => [...prevItems, {
-            Day: String = new Intl.DateTimeFormat('en-US', { weekday: 'long'}).format(date),
-            Date: String = new Intl.DateTimeFormat('en-US', { month: 'long'}).format(date) + " " + date.getDate() + ", " + date.toLocaleString('en-US', { hour: 'numeric', hour12: true }),
-            Symbol: String,
+            Day = new Intl.DateTimeFormat('en-US', { weekday: 'long'}).format(date),
+            Date = new Intl.DateTimeFormat('en-US', { month: 'long'}).format(date) + " " + date.getDate() + ", " + date.toLocaleString('en-US', { hour: 'numeric', hour12: true }),
+            Symbol,
             Temperature: result["list"][i]["main"]["temp"],
             Condition: result["list"][i]["weather"][0]["main"]
           }])
