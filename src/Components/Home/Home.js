@@ -4,6 +4,7 @@ import {Container, Row, Modal} from 'react-bootstrap';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import SearchAppBar from '../AppBar'
+import Link from '@material-ui/core/Link';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -52,6 +53,62 @@ export default function Home() {
     })
   }
 
+  function fiveDayWeather(){
+    var filteredCards = []
+    var avgTemp = 0;
+    var avgFeelsLike = 0;
+    var avgTempMin = 0;
+    var avgTempMax = 0;
+    var avgHumidity = 0;
+    var avgWindSpeed = 0;
+    var currDay = cards[0].Day
+    var counter = 0;
+
+    for(var i = 0; i < cards.length; i++){
+      if(currDay !== cards[i].Day || i + 1 === cards.length){
+        avgTemp = avgTemp/counter;
+        avgFeelsLike = avgFeelsLike/counter;
+        avgTempMax = avgTempMax/counter;
+        avgTempMin = avgTempMin/counter;
+        avgHumidity = avgHumidity/counter;
+        avgWindSpeed = avgWindSpeed/counter;
+        var tempVar = {
+          id: Math.floor((Math.random() * 100000) + 1),
+          Day: currDay,
+          Symbol: cards[i - 1].Symbol,
+          Temperature: avgTemp.toFixed(2),
+          Condition: cards[i - 1].Condition,
+          FeelsLike: avgFeelsLike.toFixed(2),
+          TempMin: avgTempMin.toFixed(2),
+          TempMax: avgTempMax.toFixed(2),
+          Humidity: avgHumidity.toFixed(2),
+          WindSpeed: avgWindSpeed.toFixed(2)
+        }
+        filteredCards.push(tempVar)
+        avgTemp = 0;
+        avgFeelsLike = 0;
+        avgTempMax = 0;
+        avgTempMin = 0;
+        avgHumidity = 0;
+        avgWindSpeed = 0;
+        counter = 0;
+      }
+      avgTemp = avgTemp + cards[i].Temperature;
+      avgFeelsLike = avgFeelsLike + cards[i].FeelsLike;
+      avgTempMin = avgTempMin + cards[i].TempMin;
+      avgTempMax = avgTempMax + cards[i].TempMax;
+      avgHumidity = avgHumidity + cards[i].Humidity;
+      avgWindSpeed = avgWindSpeed + cards[i].WindSpeed;
+      currDay = cards[i].Day
+      counter += 1;
+    }
+    setCards(filteredCards)
+  }
+
+  function threeHourWeather() {
+    fetchApi(place)
+  }
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -69,6 +126,14 @@ export default function Home() {
           {message}
         </Alert>
       </Snackbar>
+      <div className="d-flex justify-content-around">
+        <div>
+          <Link onClick={() => fiveDayWeather()}>5-Day Weather</Link>
+        </div>
+        <div>
+          <Link onClick={() => threeHourWeather()}>3hr Weather</Link>
+        </div>
+      </div>
       <Container>
         <Row xs={2} md={4} lg={5}>
           {
